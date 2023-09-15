@@ -25,7 +25,21 @@ const resolvers = {
             }
             links.push(newLink)
             return newLink
-        }
+        },
+        update:(parent, args) => {
+          const linkIndex = links.findIndex(link => link.id == args.id)
+            links[linkIndex].description = args.description;
+            links[linkIndex].url = args.url;
+            return links;
+        },
+        delete:(parent, args) => {
+            const linkIndex = links.findIndex(args)
+            const linkswithoutItem = links.splice(linkIndex,1);
+        //    console.log
+            links = linkswithoutItem
+            return links
+           
+        },
     },
     Link: {
         id: (parent) => parent.id,
