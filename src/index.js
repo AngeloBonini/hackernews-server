@@ -1,17 +1,9 @@
 const { ApolloServer } = require ('apollo-server');
 
+const typeDefs = require("./schema");
 
-const typeDefs =`
-type Query {
-    info: String!
-    feed: [Link!]!
-}
-type Link {
-    id: ID!
-    description: String!
-    url: String!
-}
-`
+
+
 let links = [{
     id: 'link-0',
     url: 'www.howtographql.com',
@@ -23,6 +15,18 @@ const resolvers = {
         info:()=> "my hackernews clone",
         feed: () => links,
     },
+    Mutation: {
+        post: (parent, args) =>{
+            let idCount = links.length
+            const newLink = {
+            id: `link-${idCount++}`,
+            url: args.url,
+            description: args.description
+            }
+            links.push(newLink)
+            return newLink
+        }
+    },
     Link: {
         id: (parent) => parent.id,
         description: (parent) => parent.description,
@@ -30,6 +34,6 @@ const resolvers = {
       }
 }
 
-const server = new ApolloServer({typeDefs, resolvers})
+const server = new ApolloServer({ typeDefs, resolvers})
 
 server.listen().then(({url}) => console.log(`server running on port ${url}`));
