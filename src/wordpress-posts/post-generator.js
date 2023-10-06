@@ -1,19 +1,10 @@
-// import { createRequire } from "module";
-// const require = createRequire(import.meta.url);
 var WPAPI = require("wpapi");
-// import {WPAPI} from "wpapi"
-// import pkg from 'wpapi';
-// const {WPAPI} = pkg;
 var _ = require( 'lodash' );
-// import * as _ from "lodash"
-// const {worker, isMainThread } = require('worker_threads');
-// import categories from "./categories.json" assert { type: 'json' };
-// import tags from "./tags.json" assert { type: 'json' };
 
   const  wp = new WPAPI({
-    endpoint: "https://groupcnetdev.wpengine.com/wp-json",
-    username: "abonini@redventures.com",
-    password: "IaUq 61ta PFgW 7KTJ vSik FqDv",
+    endpoint: process.env.WP_ENDPOINT,
+    username: process.env.WPEMAIL,
+    password: process.env.WPPSSWD,
   });
 
 
@@ -29,8 +20,6 @@ var _ = require( 'lodash' );
     
     for (let chunk = 0; chunk < LastChunk; chunk++) {
       console.log(`chunk: ${chunk + 1} of ${LastChunk}`);
-      // let randomCategories = categoriesARR[(Math.floor(Math.random() * categoriesARR.length))]
-      // let randomTags = tagsArr[(Math.floor(Math.random() * tagsArr.length))]
       let randomCategories = _.sampleSize(categoriesARR, Math.floor(Math.random() * 10) + 1);
       let randomTags = _.sampleSize(tagsArr, Math.floor(Math.random() * 10) + 1);
       console.log(randomCategories)
@@ -72,6 +61,4 @@ var _ = require( 'lodash' );
       
       await Promise.all(promises);
     }
-    // console.log(allTags)
     createWpPosts(60, 2);
-  // }
