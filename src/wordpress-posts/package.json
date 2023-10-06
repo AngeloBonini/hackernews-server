@@ -1,10 +1,11 @@
 {
-  "name": "express-lessions",
+  "name": "node-script",
   "version": "1.0.0",
-  "description": "my express server to gather lessions",
-  "main": "index.js",
+  "description": "node.js script to generate posts",
+  "main": "post-generator.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate":"node run post-generator.js"
   },
   "keywords": [],
   "author": "",
